@@ -10,4 +10,9 @@ app.get('/api/courses' , (req, res) => {
     res.send([1 , 2 , 3]);
 });
 
+app.get('/api/courses/:id', (req, res) => {
+b
+});
+
+
 app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
