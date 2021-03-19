@@ -8,6 +8,9 @@ const helmet = require('helmet');
 const PORT = process.env.PORT || 3000;
 const app = express();
 
+app.set('view engine', 'pug');
+app.set('views', './views');
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
@@ -15,7 +18,7 @@ app.use(helmet());
 
 if (app.get('env') === 'development') {
     app.use(morgan('tiny'));
-    startupDebugger('Morgan is now enabled...');
+    debug('Morgan is now enabled...');
 }
 
 // DB logger
@@ -31,7 +34,7 @@ const genres = [
 ]
 
 app.get('/', (req, res) => {
-    res.send('Mooovies')
+    res.render('index.pug', {title: 'My express app', message: 'Henlo'});
 });
 
 app.get('/api/genres', (req, res) => {
