@@ -56,6 +56,16 @@ app.put('/api/courses/:id', (req, res) => {
 
 });
 
+app.delete('/api/courses/:id', (req, res) => {
+    const course = courses.find(c => c.id === parseInt(req.params.id));
+    if (!course) res.status(404).send('That course was not found.');
+
+    const index = courses.indexOf(course);
+    courses.splice(index, 1);
+
+    res.send(course);
+});
+
 function validateCourse(course) {
     const schema = {
         name: Joi.string().min(2).required()
@@ -63,5 +73,6 @@ function validateCourse(course) {
 
     return Joi.validate(course, schema);
 }
+
 
 app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
