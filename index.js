@@ -19,6 +19,11 @@ app.get('/api/courses' , (req, res) => {
 });
 
 app.post('/api/courses', (req, res) => {
+    if(!req.body.name || req.body.name < 2) {
+        res.status(400).send('Please enter a name.');
+        return;
+    }
+
     const course = {
         id: courses.length + 1,
         name: req.body.name
