@@ -3,4 +3,9 @@ function log (req, res, next) {
     next();
 };
 
-module.exports = log;
+function authenticate(req, res, next) {
+    console.log('Authenticating...');
+    next();
+}
+
+module.exports = log, authenticate;

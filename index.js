@@ -2,13 +2,14 @@ const Joi = require("joi");
 const express = require('express');
 const app = express();
 const logger = require('./logger');
-const authenticate = require("./authenticator");
+const { urlencoded } = require("express");
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));
 
 app.use(logger);
-app.use(authenticate);
 
 const genres = [
     {id: 1, name: 'horror'},
