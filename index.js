@@ -23,7 +23,7 @@ app.post('/api/courses', (req, res) => {
     const { error } = validateCourse(req.body); // result.error
 
     if(error) {
-        res.status(400).send(result.error.details[0].message);
+        res.status(400).send(error.details[0].message);
         return;
     }
 
@@ -45,13 +45,9 @@ app.put('/api/courses/:id', (req, res) => {
     const course = courses.find(c => c.id === parseInt(req.params.id));
     if (!course) res.status(404).send('That course was not found.');
 
-    const schema = {
-        name: Joi.string().min(2).required()
-    };
-
     const { error } = validateCourse(req.body); // result.error
     if(error) {
-        res.status(400).send(result.error.details[0].message);
+        res.status(400).send(error.details[0].message);
         return;
     }
 
@@ -65,7 +61,7 @@ function validateCourse(course) {
         name: Joi.string().min(2).required()
     };
 
-    const result = Joi.validate(course, schema);
+    return Joi.validate(course, schema);
 }
 
 app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
