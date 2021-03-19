@@ -19,6 +19,7 @@
   "homepage": "https://github.com/Fancystacks/node-video-API#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "joi": "^17.4.0",
     "jshint": "^2.12.0"
   }
 }
