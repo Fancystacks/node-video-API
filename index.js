@@ -3,11 +3,15 @@ const express = require('express');
 const app = express();
 const logger = require('./logger');
 const { urlencoded } = require("express");
+const morgan = require('morgan');
+const helmet = require('helmet');
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
+app.use(helmet());
+app.use(morgan('tiny'));
 
 app.use(logger);
 
