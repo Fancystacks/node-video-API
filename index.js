@@ -24,11 +24,10 @@ app.post('/api/courses', (req, res) => {
         name: Joi.string().min(2).required()
     };
 
-    const result = schema.validate({req.body, schema});
-    console.log(result);
+    const result = Joi.validate(req.body, schema);
 
-    if(!req.body.name || req.body.name < 2) {
-        res.status(400).send('Please enter a name.');
+    if(result.error) {
+        res.status(400).send(result.error.details[0].message);
         return;
     }
 
