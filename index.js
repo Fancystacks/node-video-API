@@ -20,13 +20,9 @@ app.get('/api/courses' , (req, res) => {
 });
 
 app.post('/api/courses', (req, res) => {
-    const schema = {
-        name: Joi.string().min(2).required()
-    };
+    const { error } = validateCourse(req.body); // result.error
 
-    const result = Joi.validate(req.body, schema);
-
-    if(result.error) {
+    if(error) {
         res.status(400).send(result.error.details[0].message);
         return;
     }
@@ -53,9 +49,8 @@ app.put('/api/courses/:id', (req, res) => {
         name: Joi.string().min(2).required()
     };
 
-    const result = Joi.validate(req.body, schema);
-
-    if(result.error) {
+    const { error } = validateCourse(req.body); // result.error
+    if(error) {
         res.status(400).send(result.error.details[0].message);
         return;
     }
@@ -64,5 +59,13 @@ app.put('/api/courses/:id', (req, res) => {
     res.send(course);
 
 });
+
+function validateCourse(course) {
+    const schema = {
+        name: Joi.string().min(2).required()
+    };
+
+    const result = Joi.validate(course, schema);
+}
 
 app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
