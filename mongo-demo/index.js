@@ -13,3 +13,18 @@ const courseSchema = new mongoose.Schema({
 });
 
 const Course = mongoose.model('Course', courseSchema);
+
+async function createCourse() {
+    const course = new Course({
+        name: 'Express.js course',
+        author: 'Fancy Stacks',
+        tags: ['express', 'backend'],
+        isPublished: true
+    });
+    
+    // create course, save and display result
+    const result = await course.save();
+    console.log(result);
+}
+
+createCourse();
