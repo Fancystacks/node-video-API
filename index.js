@@ -5,6 +5,8 @@ const config = require('config');
 const logger = require('./logger');
 const morgan = require('morgan');
 const helmet = require('helmet');
+const home = require('./routes/home');
+const courses = require('./routes/courses');
 const PORT = process.env.PORT || 3000;
 const app = express();
 
@@ -15,6 +17,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(helmet());
+app.use('/api/courses', courses);
+app.use('/', home);
 
 if (app.get('env') === 'development') {
     app.use(morgan('tiny'));
@@ -25,17 +29,6 @@ if (app.get('env') === 'development') {
 debug('Connected to the database...');
 
 app.use(logger);
-
-const genres = [
-    {id: 1, name: 'horror'},
-    {id: 2, name: 'comedy'},
-    {id: 3, name: 'action'},
-    {id: 4, name: 'romance'}
-]
-
-app.get('/', (req, res) => {
-    res.render('index.pug', {title: 'My express app', message: 'Henlo'});
-});
 
 app.get('/api/genres', (req, res) => {
     res.send(genres);
