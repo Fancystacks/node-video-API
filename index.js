@@ -5,8 +5,9 @@ const config = require('config');
 const logger = require('./logger');
 const morgan = require('morgan');
 const helmet = require('helmet');
-const home = require('./routes/home');
 const courses = require('./routes/courses');
+const genres = require('./routes/genres');
+const home = require('./routes/home');
 const PORT = process.env.PORT || 3000;
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(helmet());
 app.use('/api/courses', courses);
+app.use('/api/genres', genres);
 app.use('/', home);
 
 if (app.get('env') === 'development') {
