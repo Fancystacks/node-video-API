@@ -1,12 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
-const genres = [
-    {id: 1, name: 'horror'},
-    {id: 2, name: 'comedy'},
-    {id: 3, name: 'action'},
-    {id: 4, name: 'romance'}
-]
+const courses = [ 
+    { id: 1, name: 'course1' },
+    { id: 2, name: 'course2' },
+    { id: 3, name: 'course3' }
+];
 
 router.get('/', (req, res) => {
     res.send('Henlo World');
